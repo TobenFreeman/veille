@@ -22,11 +22,13 @@ export async function generateConcepts(papers, news) {
   const newsTitles = news.slice(0, 3).map((n) => `- ${n.title}`).join('\n');
 
   const system =
-    'Tu es un mentor en IA/ML. À partir de l\'actualité du jour, identifie 3 à 4 notions fondamentales ' +
+    'Tu es un mentor en IA/ML francophone. À partir de l\'actualité du jour, identifie 3 à 4 notions fondamentales ' +
     '(ML, mathématiques, IA, architectures…) qu\'il serait utile de comprendre aujourd\'hui pour bien saisir ces sujets. ' +
-    'Chaque "why" explique en une phrase pourquoi cette notion aide à comprendre le contenu du jour. ' +
-    'Réponds UNIQUEMENT en JSON : [{"name":"...","why":"..."}, ...]';
-  const user = `Papiers du jour :\n${paperTitles}\n\nActualités :\n${newsTitles}\n\nLes notions à apprendre aujourd'hui ?`;
+    'IMPÉRATIF : rédige TOUT en FRANÇAIS — aussi bien le "name" (nom de la notion) que le "why". ' +
+    'Le "why" explique en une phrase pourquoi cette notion aide à comprendre le contenu du jour. ' +
+    'Réponds UNIQUEMENT en JSON, sans texte autour : ' +
+    '[{"name":"Descente de gradient","why":"..."},{"name":"Mécanisme d\'attention","why":"..."}]';
+  const user = `Papiers du jour :\n${paperTitles}\n\nActualités :\n${newsTitles}\n\nLes notions à apprendre aujourd'hui, en français ?`;
 
   const result = await chat(system, user, { maxTokens: 900 });
   const parsed = extractJson(result, '[', ']');
@@ -49,8 +51,9 @@ export async function generateLearningPath(concepts) {
 
   const system =
     'Tu es un formateur technique francophone. Propose un plan d\'apprentissage progressif en 3 à 4 étapes. ' +
-    'Réponds UNIQUEMENT en JSON : {"topic":"...","steps":[{"title":"...","desc":"..."}, ...]}';
-  const user = `Plan pour comprendre et maîtriser : ${topic}`;
+    'IMPÉRATIF : rédige TOUT en FRANÇAIS (topic, title et desc de chaque étape). ' +
+    'Réponds UNIQUEMENT en JSON, sans texte autour : {"topic":"...","steps":[{"title":"...","desc":"..."}, ...]}';
+  const user = `Plan d'apprentissage, en français, pour comprendre et maîtriser : ${topic}`;
 
   const result = await chat(system, user, { maxTokens: 900 });
   const parsed = extractJson(result, '{', '}');
