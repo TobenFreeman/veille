@@ -1,0 +1,9 @@
+[Unit]
+Description=Veille IA - génération quotidienne du briefing
+After=network.target docker.service
+
+[Service]
+Type=oneshot
+User=ubuntu
+WorkingDirectory=/home/ubuntu/veille/backend
+ExecStart=/usr/bin/node /home/ubuntu/veille/backend/src/jobs/generate.js

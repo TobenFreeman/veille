@@ -1,0 +1,18 @@
+[Unit]
+Description=Veille IA - API backend Node.js
+After=network.target docker.service
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/veille/backend
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/node /home/ubuntu/veille/backend/src/server.js
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target
