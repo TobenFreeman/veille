@@ -13,9 +13,26 @@ function formatDate(iso) {
 export default function Briefing({ briefing }) {
   const { date, papers = [], news = [], concepts = [], learning_path } = briefing;
 
+  const stats = [
+    { n: papers.length, label: 'papiers arXiv' },
+    { n: news.length, label: 'actualités' },
+    { n: concepts.length, label: 'notions' },
+  ];
+
   return (
     <article className="briefing">
-      <div className="briefing-date">📅 {formatDate(date)}</div>
+      <div className="hero">
+        <div className="hero-badge">Briefing du jour</div>
+        <h1 className="hero-date">{formatDate(date)}</h1>
+        <div className="hero-stats">
+          {stats.map((s) => (
+            <div className="stat" key={s.label}>
+              <span className="stat-n">{s.n}</span>
+              <span className="stat-l">{s.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {concepts.length > 0 && (
         <section className="section">
@@ -36,7 +53,7 @@ export default function Briefing({ briefing }) {
           <h2><span className="ico">📄</span> Papiers arXiv du jour</h2>
           <div className="cards">
             {papers.map((p, i) => (
-              <div className="card" key={i}>
+              <div className="card card--paper" key={i}>
                 <h3>{p.title}</h3>
                 {p.authors && <div className="meta">{p.authors}</div>}
                 <Markdown className="summary">{p.summary_fr || p.abstract}</Markdown>
@@ -57,7 +74,7 @@ export default function Briefing({ briefing }) {
           <h2><span className="ico">🌐</span> Actualités IA</h2>
           <div className="cards">
             {news.map((n, i) => (
-              <div className="card" key={i}>
+              <div className="card card--news" key={i}>
                 <div className="news-src">{n.source}</div>
                 <h3>{n.title}</h3>
                 <Markdown className="summary">{n.summary_fr}</Markdown>

@@ -3,11 +3,14 @@
 import { XMLParser } from 'fast-xml-parser';
 
 // Sources RSS IA fiables et bien maintenues.
+// Sources IA réputées, avec des flux RSS sains et bien maintenus.
+// MIT Tech Review = référence ; TechCrunch/VentureBeat = actu produit/enterprise ;
+// Ars Technica (flux IA dédié) ; The Decoder = média spécialisé IA.
 const SOURCES = [
+  { url: 'https://www.technologyreview.com/topic/artificial-intelligence/feed', name: 'MIT Tech Review' },
   { url: 'https://techcrunch.com/category/artificial-intelligence/feed/', name: 'TechCrunch' },
   { url: 'https://venturebeat.com/category/ai/feed/', name: 'VentureBeat' },
-  { url: 'https://www.technologyreview.com/topic/artificial-intelligence/feed', name: 'MIT Tech Review' },
-  { url: 'https://www.wired.com/feed/tag/ai/latest/rss', name: 'Wired' },
+  { url: 'https://arstechnica.com/ai/feed/', name: 'Ars Technica' },
   { url: 'https://the-decoder.com/feed/', name: 'The Decoder' },
 ];
 
