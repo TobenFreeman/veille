@@ -121,8 +121,11 @@ img { max-width: 100%; height: auto; }
 .concept-why { color: var(--text-dim); font-size: 15px; }
 .concept-why p { margin: 0; }
 
-/* Cards */
-.cards { display: grid; gap: 16px; }
+/* Cards — 1 colonne sur mobile, 2 colonnes dès qu'il y a la place */
+.cards { display: grid; gap: 16px; grid-template-columns: 1fr; }
+@media (min-width: 680px) {
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 .card {
   background: var(--card);
   border: 1px solid var(--border);
